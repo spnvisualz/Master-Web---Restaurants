@@ -2,6 +2,8 @@
   "use strict";
 
   var SHOP = window.SHOP;
+  // A Google Apps Script endpoint (see apps-script/Code.gs) also reports busy times.
+  var IS_GOOGLE = /^https:\/\/script\.google\.com\//.test(SHOP.bookingEndpoint || "");
   var $ = function (sel, root) { return (root || document).querySelector(sel); };
   var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
 
@@ -34,6 +36,7 @@
       "p1.hint": "Velg én eller flere tjenester.",
       "p2.barber": "Barber", "p2.date": "Velg dag", "p2.time": "Ledige tider", "p2.timeFor": "Ledige tider {day}",
       "p2.none": "Ingen ledige tider denne dagen. Prøv en annen dag.",
+      "p2.loading": "Henter ledige tider…",
       "p2.closed": "Stengt",
       "f.name": "Navn", "f.phone": "Mobilnummer", "f.email": "E-post", "f.optional": "(valgfritt)",
       "f.note": "Beskjed til David", "f.notePh": "F.eks. «Lav skin fade, litt av toppen»",
@@ -41,6 +44,7 @@
       "err.name": "Skriv inn navnet ditt.", "err.phone": "Skriv inn et gyldig mobilnummer (minst 8 siffer).",
       "err.email": "Sjekk e-postadressen.", "err.policy": "Du må godta vilkårene for å bestille.",
       "err.submit": "Bookingen ble ikke sendt. Prøv igjen, eller send David en melding på Instagram.",
+      "err.taken": "Noen booket akkurat den tiden. Velg en annen tid.",
       "c.ref": "Referanse", "c.title": "Du er booket inn!",
       "c.note": "Kom gjerne 5 minutter før. Trenger du å flytte timen, gi beskjed senest {h} timer før.",
       "c.ics": "Legg til i kalender", "c.again": "Ny booking",
@@ -70,6 +74,7 @@
       "p1.hint": "Choose one or more services.",
       "p2.barber": "Barber", "p2.date": "Choose a day", "p2.time": "Free times", "p2.timeFor": "Free times {day}",
       "p2.none": "No free times this day. Try another day.",
+      "p2.loading": "Loading free times…",
       "p2.closed": "Closed",
       "f.name": "Name", "f.phone": "Mobile number", "f.email": "Email", "f.optional": "(optional)",
       "f.note": "Note for David", "f.notePh": "E.g. “Low skin fade, a little off the top”",
@@ -77,6 +82,7 @@
       "err.name": "Enter your name.", "err.phone": "Enter a valid mobile number (at least 8 digits).",
       "err.email": "Check the email address.", "err.policy": "Accept the policy to book.",
       "err.submit": "The booking wasn't sent. Try again, or message David on Instagram.",
+      "err.taken": "Someone just booked that time. Please pick another.",
       "c.ref": "Reference", "c.title": "You're booked!",
       "c.note": "Please arrive 5 minutes early. Need to move it? Let us know at least {h} hours before.",
       "c.ics": "Add to calendar", "c.again": "New booking",
@@ -129,7 +135,10 @@
   }
 
   /* ---------- Availability ---------- */
-  function bookings() { return load("db-bookings", []); }
+  var remoteBusy = [];
+  var busyState = IS_GOOGLE ? "loading" : "none";
+  var busyLoadedAt = 0;
+  function bookings() { return load("db-bookings", []).concat(remoteBusy); }
 
   function slotsFor(date, duration) {
     var h = SHOP.hours[date.getDay()];
@@ -164,6 +173,28 @@
       if (s.length) return { date: days[i], min: s[0] };
     }
     return null;
+  }
+
+  function loadBusy() {
+    if (!IS_GOOGLE) return;
+    busyState = "loading";
+    var days = bookableDays();
+    var url = SHOP.bookingEndpoint + (SHOP.bookingEndpoint.indexOf("?") === -1 ? "?" : "&") +
+      "action=busy&from=" + dateKey(days[0]) + "&to=" + dateKey(days[days.length - 1]);
+    fetch(url)
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d || !d.ok) throw new Error("busy failed");
+        remoteBusy = d.busy || [];
+        busyState = "ready";
+        busyLoadedAt = Date.now();
+      })
+      .catch(function () { busyState = "error"; }) // the server still rejects taken times on submit
+      .then(function () {
+        renderNextSlot();
+        if (state.step === 2) renderDates();
+        renderSummary();
+      });
   }
 
   /* ---------- Booking state ---------- */
@@ -242,7 +273,7 @@
     var shortest = Math.min.apply(null, SHOP.services.filter(function (s) { return s.cat !== "extra"; }).map(function (s) { return s.min; }));
     var n = nextFreeSlot(shortest);
     var el = $("#next-slot");
-    if (!n) { el.hidden = true; return; }
+    if (!n || busyState === "loading") { el.hidden = true; return; }
     $("#next-slot-text").textContent = t("hero.next", { when: dayLabel(n.date, false) + " " + t("at") + " " + fmtTime(n.min) });
     el.hidden = false;
   }
@@ -287,6 +318,7 @@
 
   function renderTimes() {
     var root = $("#times");
+    if (busyState === "loading") { root.innerHTML = '<p class="times-empty">' + t("p2.loading") + "</p>"; return; }
     if (!state.date) { root.innerHTML = '<p class="times-empty">' + t("p2.none") + "</p>"; return; }
     var d = fromKey(state.date);
     $("#times-title").textContent = t("p2.timeFor", { day: dayLabel(d) });
@@ -345,6 +377,8 @@
 
   function goTo(step, scroll) {
     state.step = step;
+    $("#taken-error").classList.remove("show");
+    if (step === 2 && IS_GOOGLE && busyState !== "loading" && Date.now() - busyLoadedAt > 60000) loadBusy();
     renderBooking();
     if (scroll) {
       var top = $("#stepper").getBoundingClientRect().top + window.scrollY - 90;
@@ -400,23 +434,40 @@
     $("#submit-error").classList.remove("show");
     state.sending = true; renderSummary();
 
-    var send = SHOP.bookingEndpoint
-      ? fetch(SHOP.bookingEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "Accept": "application/json" },
-          body: JSON.stringify(booking)
-        }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); })
-      : Promise.resolve();
+    var send;
+    if (!SHOP.bookingEndpoint) {
+      send = Promise.resolve();
+    } else if (IS_GOOGLE) {
+      // No custom headers: Apps Script can't answer a CORS preflight.
+      send = fetch(SHOP.bookingEndpoint, { method: "POST", body: JSON.stringify(booking) })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (!d || !d.ok) { var err = new Error("booking failed"); err.code = d && d.error; throw err; }
+        });
+    } else {
+      send = fetch(SHOP.bookingEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(booking)
+      }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); });
+    }
 
     send.then(function () {
-      var all = bookings(); all.push(booking); save("db-bookings", all);
+      var all = load("db-bookings", []); all.push(booking); save("db-bookings", all);
       state.last = booking;
       state.sending = false;
       $("#details-form").reset();
       goTo(4, true);
       renderNextSlot();
-    }).catch(function () {
+    }).catch(function (err) {
       state.sending = false;
+      if (err && err.code === "taken") {
+        state.time = null;
+        busyLoadedAt = 0;
+        goTo(2, true);
+        $("#taken-error").classList.add("show");
+        return;
+      }
       $("#submit-error").classList.add("show");
       renderSummary();
     });
@@ -486,6 +537,7 @@
     var tm = e.target.closest("[data-time]");
     if (tm) {
       state.time = +tm.getAttribute("data-time");
+      $("#taken-error").classList.remove("show");
       $$("#times .time").forEach(function (b) { b.setAttribute("aria-pressed", b === tm); });
       renderSummary();
     }
@@ -520,4 +572,5 @@
   $("#year").textContent = new Date().getFullYear();
   renderGallery();
   renderAll();
+  loadBusy();
 })();

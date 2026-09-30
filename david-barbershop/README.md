@@ -18,16 +18,47 @@ The booking flow follows the Bladez Barbershop setup (Timma):
 
 Each "Bestill →" link in the price list skips straight to step 2 with that service selected.
 
-### Receiving bookings
+### Receiving bookings (where David sees them)
 
-Right now bookings are only saved in the visitor's browser (preview mode).
-To receive them for real, set `bookingEndpoint` in `js/config.js` to any URL that accepts a JSON `POST`:
+Right now bookings are only saved in the visitor's browser (preview mode). The recommended setup
+is free and uses David's own Google account. Every booking then:
 
-- **Formspree** (easiest): create a form at formspree.io and paste its endpoint. Every booking
-  arrives as an email.
-- **Google Apps Script**: a web app that appends each booking to a Google Sheet.
-- **Make / Zapier webhook**: forward to email, SMS or Google Calendar.
-- **Your own API**.
+- appears as an event in **David's Google Calendar**, so it shows up on his phone;
+- is added as a row in a **Google Sheet** called "Bookinger";
+- sends **David an email**, and sends the customer a confirmation if they gave an email.
+
+The site reads his calendar and hides every time that is taken. **Anything in the calendar
+blocks booking**, so David can block a lunch break, a day off or a holiday just by adding an event.
+If he deletes a booking from the calendar, that time opens up again. The site only gets start and
+end times from the calendar, never names or phone numbers.
+
+**One-time setup (about 10 minutes, on David's Google account):**
+
+1. Create a new Google Sheet, e.g. "David Barbershop – bookinger".
+2. In the sheet, open **Extensions → Apps Script**. Delete what's there and paste in the contents of
+   [`apps-script/Code.gs`](apps-script/Code.gs). If you like, fill in `SHOP_ADDRESS` at the top. Save.
+3. Choose the `setup` function in the toolbar and click **Run**. Approve the permissions
+   (Calendar, Sheets, send email). This creates the "Bookinger" tab.
+4. Click **Deploy → New deployment**, choose the type **Web app**, and set:
+   - *Execute as*: **Me**
+   - *Who has access*: **Anyone**
+5. Click **Deploy** and copy the web app URL (`https://script.google.com/macros/s/…/exec`).
+6. Paste it into `bookingEndpoint` in `js/config.js` and publish the site.
+
+After editing `Code.gs` later, use **Deploy → Manage deployments → Edit → New version**, so the URL stays the same.
+
+Tips:
+- To keep bookings apart from private events, create a separate calendar called "Barbershop"
+  and put its ID (Calendar settings → *Integrate calendar*) in `CALENDAR_ID`. Then only events
+  in that calendar block booking times.
+- Bookings are checked against the calendar under a lock, so two customers can't get the
+  same time. The second one is asked to choose another time.
+- Times are handled in Norwegian time (`Europe/Oslo`).
+
+**Other options.** Any URL that accepts a JSON `POST` also works (Formspree, Make/Zapier,
+your own API), but then the site can't hide times that are already booked. A booking platform
+such as Timma (the one Bladez uses) or Setmore gives David an app with SMS reminders, for a
+monthly fee. In that case, link the "Bestill time" buttons to that platform instead.
 
 Each booking is sent as JSON like this:
 
@@ -39,10 +70,6 @@ Each booking is sent as JSON like this:
   "name": "…", "phone": "…", "email": "…", "note": "…", "language": "no"
 }
 ```
-
-Note: with a plain email endpoint like Formspree, customers can't see slots that other people
-have already booked. To block taken times for everyone, you need a backend that stores bookings
-and returns them, or a booking service such as Timma or Setmore.
 
 ## Editing content
 

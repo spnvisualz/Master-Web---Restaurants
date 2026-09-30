@@ -36,9 +36,15 @@ window.SHOP = {
 
   /*
    * Where bookings are sent. Leave "" for preview mode (bookings are only kept
-   * in the visitor's own browser). Any endpoint that accepts a JSON POST works:
-   * Formspree, a Google Apps Script web app, Make/Zapier webhook, or your own API.
-   * See README.md.
+   * in the visitor's own browser).
+   *
+   * Recommended: the Google Apps Script web app URL from apps-script/Code.gs
+   * ("https://script.google.com/macros/s/…/exec"). Bookings then go into David's
+   * Google Calendar and a Google Sheet, he gets an email, and busy times in his
+   * calendar are hidden on the site. See README.md.
+   *
+   * Any other URL that accepts a JSON POST (Formspree, Zapier, your own API)
+   * also works, but then the site can't hide times that are already booked.
    */
   bookingEndpoint: "",
 
