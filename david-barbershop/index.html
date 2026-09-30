@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>David Barbershop</title>
+<meta name="description" content="David Barbershop – skin fades, hårklipp og skjegg. Bestill time online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="#top" aria-label="David Barbershop">DAVID<span>Barbershop</span></a>
+  <nav class="nav-links" aria-label="Hovedmeny">
+    <a href="#priser" data-i18n="nav.services">Priser</a>
+    <a href="#kutt" data-i18n="nav.cuts">Kutt</a>
+    <a href="#om" data-i18n="nav.about">Om David</a>
+    <a href="#info" data-i18n="nav.info">Åpningstider</a>
+  </nav>
+  <div class="nav-actions">
+    <button class="lang" id="lang-toggle" type="button" aria-label="Switch to English">EN</button>
+    <a class="btn btn-accent btn-sm" href="#booking" data-i18n="cta.book">Bestill time</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow"><a class="ig-handle" href="https://www.instagram.com/david_bereket/" target="_blank" rel="noopener">@david_bereket</a></p>
+      <h1 class="hero-title">
+        <span class="fade-word">DAVID</span>
+        <span class="hero-sub">Barbershop</span>
+      </h1>
+      <p class="hero-lede" data-i18n="hero.lede">Skarpe fades, rene linjer og skjegg som sitter. Velg tjeneste, finn en ledig tid og bestill på under ett minutt.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-accent" href="#booking" data-i18n="cta.book">Bestill time</a>
+        <a class="btn btn-ghost" href="#kutt" data-i18n="cta.cuts">Se kuttene</a>
+      </div>
+      <p class="next-slot" id="next-slot" hidden><span class="dot" aria-hidden="true"></span><span id="next-slot-text"></span></p>
+    </div>
+    <div class="guard" aria-hidden="true">
+      <div class="guard-bar"></div>
+      <ol class="guard-scale">
+        <li>#0</li><li>#½</li><li>#1</li><li>#1½</li><li>#2</li><li>#3</li><li>#4</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Services & prices -->
+  <section class="section" id="priser">
+    <div class="section-head">
+      <p class="eyebrow" data-i18n="services.eyebrow">Tjenester</p>
+      <h2 data-i18n="services.title">Priser</h2>
+    </div>
+    <div class="price-list" id="price-list"></div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section" id="kutt">
+    <div class="section-head section-head-row">
+      <div>
+        <p class="eyebrow" data-i18n="cuts.eyebrow">Fra Instagram</p>
+        <h2 data-i18n="cuts.title">Ferske kutt</h2>
+      </div>
+      <a class="text-link" href="https://www.instagram.com/david_bereket/" target="_blank" rel="noopener"><span data-i18n="cuts.more">Flere kutt på Instagram</span> ↗</a>
+    </div>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <!-- About -->
+  <section class="section about" id="om">
+    <div class="about-mark" aria-hidden="true">
+      <span>D</span>
+    </div>
+    <div class="about-copy">
+      <p class="eyebrow" data-i18n="about.eyebrow">Barberen</p>
+      <h2>David Bereket</h2>
+      <p data-i18n="about.p1">Hver klipp starter med en kort prat: hvor lav skal fadingen gå, hvor mye skal bli igjen på toppen, og hvordan pleier du å style håret. Så jobber David seg opp guard for guard til overgangen er helt jevn.</p>
+      <p data-i18n="about.p2">Resultatet er en fade som ser like ren ut fra siden som rett forfra, med skarpe linjer ved panne, tinninger og nakke.</p>
+      <ul class="about-points">
+        <li data-i18n="about.pt1">Skin, low, mid og burst fades</li>
+        <li data-i18n="about.pt2">Linjer og design</li>
+        <li data-i18n="about.pt3">Skjegg med varmt håndkle og kniv</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="section booking" id="booking">
+    <div class="section-head">
+      <p class="eyebrow" data-i18n="booking.eyebrow">Online booking</p>
+      <h2 data-i18n="booking.title">Bestill time</h2>
+    </div>
+
+    <ol class="stepper" id="stepper">
+      <li data-step="1"><span class="num">1</span><span class="lbl" data-i18n="step.1">Tjeneste</span></li>
+      <li data-step="2"><span class="num">2</span><span class="lbl" data-i18n="step.2">Tid</span></li>
+      <li data-step="3"><span class="num">3</span><span class="lbl" data-i18n="step.3">Dine detaljer</span></li>
+      <li data-step="4"><span class="num">4</span><span class="lbl" data-i18n="step.4">Bekreftet</span></li>
+    </ol>
+
+    <div class="booking-body">
+      <div class="booking-main">
+
+        <!-- Step 1: services -->
+        <div class="panel" data-panel="1">
+          <p class="panel-hint" data-i18n="p1.hint">Velg én eller flere tjenester.</p>
+          <div id="svc-picker"></div>
+        </div>
+
+        <!-- Step 2: barber, date, time -->
+        <div class="panel" data-panel="2" hidden>
+          <div class="barber-row">
+            <div class="barber-chip is-selected">
+              <span class="avatar" aria-hidden="true">D</span>
+              <span><strong>David</strong><small data-i18n="p2.barber">Barber</small></span>
+            </div>
+          </div>
+          <h3 class="panel-title" data-i18n="p2.date">Velg dag</h3>
+          <div class="dates-wrap">
+            <div class="dates" id="dates" role="listbox" aria-label="Dager"></div>
+          </div>
+          <h3 class="panel-title" id="times-title" data-i18n="p2.time">Ledige tider</h3>
+          <div class="times" id="times"></div>
+        </div>
+
+        <!-- Step 3: details -->
+        <div class="panel" data-panel="3" hidden>
+          <form id="details-form" class="form" novalidate>
+            <div class="field">
+              <label for="f-name" data-i18n="f.name">Navn</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required>
+              <p class="err" data-err="name" data-i18n="err.name">Skriv inn navnet ditt.</p>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="f-phone" data-i18n="f.phone">Mobilnummer</label>
+                <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+47" required>
+                <p class="err" data-err="phone" data-i18n="err.phone">Skriv inn et gyldig mobilnummer (minst 8 siffer).</p>
+              </div>
+              <div class="field">
+                <label for="f-email"><span data-i18n="f.email">E-post</span> <small data-i18n="f.optional">(valgfritt)</small></label>
+                <input id="f-email" name="email" type="email" autocomplete="email">
+                <p class="err" data-err="email" data-i18n="err.email">Sjekk e-postadressen.</p>
+              </div>
+            </div>
+            <div class="field">
+              <label for="f-note"><span data-i18n="f.note">Beskjed til David</span> <small data-i18n="f.optional">(valgfritt)</small></label>
+              <textarea id="f-note" name="note" rows="3" data-i18n-ph="f.notePh" placeholder="F.eks. «Lav skin fade, litt av toppen»"></textarea>
+            </div>
+            <label class="check" for="f-policy">
+              <input id="f-policy" name="policy" type="checkbox" required>
+              <span data-i18n="f.policy">Jeg godtar avbestillingsvilkårene: avbestill senest 24 timer før. Ved senere avbestilling eller ved å ikke møte opp kan 100 % av prisen bli belastet.</span>
+            </label>
+            <p class="err" data-err="policy" data-i18n="err.policy">Du må godta vilkårene for å bestille.</p>
+            <p class="err err-submit" id="submit-error" data-i18n="err.submit">Bookingen ble ikke sendt. Prøv igjen, eller send David en melding på Instagram.</p>
+          </form>
+        </div>
+
+        <!-- Step 4: confirmation -->
+        <div class="panel" data-panel="4" hidden>
+          <div class="confirm">
+            <p class="confirm-ref"><span data-i18n="c.ref">Referanse</span> <strong id="c-ref"></strong></p>
+            <h3 class="confirm-title" data-i18n="c.title">Du er booket inn!</h3>
+            <p class="confirm-when" id="c-when"></p>
+            <ul class="confirm-list" id="c-list"></ul>
+            <p class="confirm-note" data-i18n="c.note">Kom gjerne 5 minutter før. Trenger du å flytte timen, gi beskjed senest 24 timer før.</p>
+            <div class="confirm-actions">
+              <button class="btn btn-ghost" type="button" id="ics-btn" data-i18n="c.ics">Legg til i kalender</button>
+              <button class="btn btn-ghost" type="button" id="again-btn" data-i18n="c.again">Ny booking</button>
+            </div>
+            <p class="preview-note" id="preview-note" hidden data-i18n="c.preview">Forhåndsvisning: bookingen er bare lagret i denne nettleseren. Legg inn en bookingEndpoint i js/config.js for å motta bookinger.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <aside class="summary" id="summary" aria-live="polite">
+        <p class="summary-label" data-i18n="s.label">Din booking</p>
+        <ul class="summary-items" id="s-items"></ul>
+        <p class="summary-empty" id="s-empty" data-i18n="s.empty">Ingen tjenester valgt ennå.</p>
+        <p class="summary-when" id="s-when" hidden></p>
+        <div class="summary-total">
+          <span id="s-dur"></span>
+          <strong id="s-total"></strong>
+        </div>
+        <div class="summary-actions">
+          <button class="btn btn-ghost" type="button" id="back-btn" data-i18n="s.back">Tilbake</button>
+          <button class="btn btn-accent" type="button" id="next-btn" data-i18n="s.next">Neste</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Info -->
+  <section class="section info" id="info">
+    <div class="info-block">
+      <p class="eyebrow" data-i18n="info.eyebrow">Åpningstider</p>
+      <table class="hours" id="hours"></table>
+    </div>
+    <div class="info-block">
+      <p class="eyebrow" data-i18n="info.contact">Kontakt</p>
+      <dl class="contact" id="contact"></dl>
+    </div>
+    <div class="info-block">
+      <p class="eyebrow" data-i18n="info.policy">Avbestilling</p>
+      <p class="policy" data-i18n="info.policyText">Avbestill eller flytt timen senest 24 timer før. Ved senere avbestilling eller ved å ikke møte opp forbeholder vi oss retten til å belaste 100 % av prisen.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span class="brand brand-foot">DAVID<span>Barbershop</span></span>
+  <a class="text-link" href="https://www.instagram.com/david_bereket/" target="_blank" rel="noopener">Instagram @david_bereket ↗</a>
+  <small>© <span id="year"></span> David Barbershop</small>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
