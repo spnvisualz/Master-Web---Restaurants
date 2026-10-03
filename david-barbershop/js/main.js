@@ -561,16 +561,30 @@
   });
 
   /* ---------- Boot ---------- */
-  function renderAll() {
-    applyStaticText();
-    renderPriceList();
-    renderInfo();
-    renderNextSlot();
-    renderBooking();
+  // Each part renders on its own, so one failure can't leave the rest of the page empty.
+  var bootErrors = [];
+  function safe(name, fn) {
+    try { fn(); }
+    catch (e) {
+      bootErrors.push(name + ": " + (e && e.message ? e.message : e));
+      if (window.console) console.error(name, e);
+    }
   }
 
-  $("#year").textContent = new Date().getFullYear();
-  renderGallery();
+  function renderAll() {
+    safe("text", applyStaticText);
+    safe("prices", renderPriceList);
+    safe("info", renderInfo);
+    safe("next-slot", renderNextSlot);
+    safe("booking", renderBooking);
+  }
+
+  safe("year", function () { $("#year").textContent = new Date().getFullYear(); });
+  safe("gallery", renderGallery);
   renderAll();
-  loadBusy();
+  safe("busy", loadBusy);
+
+  // Lets the page (or a preview build) know whether everything rendered.
+  window.DB_BOOT = { ok: bootErrors.length === 0, errors: bootErrors };
+  try { document.dispatchEvent(new CustomEvent("db:ready", { detail: window.DB_BOOT })); } catch (e) { /* very old browsers */ }
 })();
