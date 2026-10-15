@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spnvisualz</title>
+<meta name="description" content="Spnvisualz: music videos, visualizers, cover art and short-form content. Every project gets its own world.">
+<meta name="theme-color" content="#13111c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Instrument+Sans:wght@400;500;600&family=Silkscreen&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Spnvisualz, back to top">SPN<span>VISUALZ</span></a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    <nav class="nav-links" id="nav-links" aria-label="Main">
+      <a href="#zones">Services</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a class="btn btn-ember btn-sm" href="#contact">Start a project</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Hero: the overworld map, seen through a viewfinder -->
+  <section class="hero" id="top">
+    <canvas class="hero-map" id="hero-map" aria-hidden="true"></canvas>
+    <div class="hero-marker" id="hero-marker" aria-hidden="true">
+      <span class="marker-dot"></span>
+      <span class="marker-label">You are here</span>
+    </div>
+    <div class="wrap hero-inner">
+      <div class="hud hud-top" aria-hidden="true">
+        <span class="rec"><span class="rec-dot"></span>REC</span>
+        <span class="timecode" id="timecode">00:00:00:00</span>
+        <span class="hud-spec">4K · 24 FPS · 2.39:1</span>
+      </div>
+
+      <div class="hero-copy">
+        <p class="eyebrow">Music videos · Visualizers · Cover art</p>
+        <h1 class="hero-title">SPN<br><span>VISUALZ</span></h1>
+        <p class="hero-lede">Every release deserves its own world. Spnvisualz builds it: the video, the loop, the cover and the cutdowns, all in one look.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-ember" href="#contact">Start a project</a>
+          <a class="btn btn-ghost" href="#work">Explore the work</a>
+        </div>
+      </div>
+
+      <div class="hud hud-bottom" aria-hidden="true">
+        <span>World 1 · Overworld</span>
+        <span class="press-start">Press start ▸</span>
+      </div>
+    </div>
+    <span class="vf vf-tl" aria-hidden="true"></span>
+    <span class="vf vf-tr" aria-hidden="true"></span>
+    <span class="vf vf-bl" aria-hidden="true"></span>
+    <span class="vf vf-br" aria-hidden="true"></span>
+  </section>
+
+  <!-- Services as zones on the map -->
+  <section class="section" id="zones">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The map</p>
+        <h2>Four zones, one look</h2>
+        <p class="section-lede">Book one zone or the whole map. When you combine them, the video, loops, artwork and social clips share the same palette, type and grade.</p>
+      </div>
+
+      <div class="zones">
+        <article class="zone">
+          <header class="zone-head">
+            <span class="zone-ref">Grid A1</span>
+            <h3>Music videos</h3>
+          </header>
+          <p>Performance, narrative and one-take pieces, from concept to final grade.</p>
+          <ul class="loot">
+            <li>Treatment and shot list</li>
+            <li>Shoot day with crew and lighting</li>
+            <li>Edit, colour grade and sync</li>
+            <li>16:9 master plus vertical cutdowns</li>
+          </ul>
+        </article>
+
+        <article class="zone">
+          <header class="zone-head">
+            <span class="zone-ref">Grid B2</span>
+            <h3>Visualizers</h3>
+          </header>
+          <p>Loops, lyric videos and live visuals for release day and the stage screen.</p>
+          <ul class="loot">
+            <li>Spotify Canvas loops (3–8 s, 9:16)</li>
+            <li>Lyric and audio-reactive videos</li>
+            <li>Stage-screen loops for live sets</li>
+            <li>YouTube visualizers for full tracks</li>
+          </ul>
+        </article>
+
+        <article class="zone">
+          <header class="zone-head">
+            <span class="zone-ref">Grid C3</span>
+            <h3>Cover art &amp; stills</h3>
+          </header>
+          <p>Single and album artwork, press photos and stills pulled from the shoot.</p>
+          <ul class="loot">
+            <li>Cover art at 3000 × 3000 px</li>
+            <li>Press photo set</li>
+            <li>Behind-the-scenes stills</li>
+            <li>Crops for every platform</li>
+          </ul>
+        </article>
+
+        <article class="zone">
+          <header class="zone-head">
+            <span class="zone-ref">Grid D4</span>
+            <h3>Brand &amp; social</h3>
+          </header>
+          <p>Short-form content for artists, labels and brands that post every week.</p>
+          <ul class="loot">
+            <li>Reels, TikTok and Shorts at 1080 × 1920</li>
+            <li>Teasers and announcement clips</li>
+            <li>Event and tour recaps</li>
+            <li>Motion titles and logo stings</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section class="section section-alt" id="work">
+    <div class="wrap">
+      <div class="section-head section-head-row">
+        <div>
+          <p class="eyebrow">Save files</p>
+          <h2>Selected work</h2>
+        </div>
+        <div class="filters" id="filters" role="group" aria-label="Filter work by type">
+          <button type="button" class="filter is-active" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" class="filter" data-filter="music-video" aria-pressed="false">Music videos</button>
+          <button type="button" class="filter" data-filter="visualizer" aria-pressed="false">Visualizers</button>
+          <button type="button" class="filter" data-filter="cover-art" aria-pressed="false">Cover art</button>
+          <button type="button" class="filter" data-filter="social" aria-pressed="false">Social</button>
+        </div>
+      </div>
+      <div class="work-grid" id="work-grid"></div>
+      <p class="work-empty" id="work-empty" hidden>No projects in this zone yet.</p>
+    </div>
+  </section>
+
+  <!-- Formats -->
+  <section class="section" id="formats">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Aspect ratios</p>
+        <h2>Cut for every screen</h2>
+        <p class="section-lede">Each project is framed for the places it will live, so nothing gets cropped badly after delivery.</p>
+      </div>
+      <div class="formats">
+        <figure class="format">
+          <div class="frame-stage"><div class="frame" style="--r: 16 / 9; --rw: 1.7778"><span>16:9</span></div></div>
+          <figcaption><strong>Master</strong>YouTube, TV, press</figcaption>
+        </figure>
+        <figure class="format">
+          <div class="frame-stage"><div class="frame" style="--r: 9 / 16; --rw: 0.5625"><span>9:16</span></div></div>
+          <figcaption><strong>Vertical</strong>Reels, TikTok, Shorts, Canvas</figcaption>
+        </figure>
+        <figure class="format">
+          <div class="frame-stage"><div class="frame" style="--r: 1 / 1; --rw: 1"><span>1:1</span></div></div>
+          <figcaption><strong>Square</strong>Cover art, feed posts</figcaption>
+        </figure>
+        <figure class="format">
+          <div class="frame-stage"><div class="frame" style="--r: 2.39 / 1; --rw: 2.39"><span>2.39:1</span></div></div>
+          <figcaption><strong>Scope</strong>Cinematic music videos</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section section-alt" id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Quest log</p>
+        <h2>From first call to final files</h2>
+      </div>
+      <ol class="quest">
+        <li>
+          <span class="quest-step">Stage 1</span>
+          <h3>Brief</h3>
+          <p>A short call about the track, the release plan and the budget. Send a link to the song if you have it.</p>
+        </li>
+        <li>
+          <span class="quest-step">Stage 2</span>
+          <h3>Treatment</h3>
+          <p>A written concept with references, locations and a shot list. You approve it before anything is booked.</p>
+        </li>
+        <li>
+          <span class="quest-step">Stage 3</span>
+          <h3>Production</h3>
+          <p>The shoot day, or build days for animated visuals and loops.</p>
+        </li>
+        <li>
+          <span class="quest-step">Stage 4</span>
+          <h3>Delivery</h3>
+          <p>Edit, colour grade and a review round, then the master and every cutdown you need.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section" id="contact">
+    <div class="wrap contact">
+      <div class="contact-copy">
+        <p class="eyebrow">New game</p>
+        <h2>Start a project</h2>
+        <p class="section-lede">Tell Spnvisualz about the release. The more you share about the song, the date and the feeling you want, the better the first idea will be.</p>
+        <ul class="socials" id="socials"></ul>
+      </div>
+
+      <form class="form" id="project-form" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-name">Your name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-artist">Artist or brand</label>
+            <input id="f-artist" name="artist" type="text">
+          </div>
+          <div class="field">
+            <label for="f-type">What do you need?</label>
+            <select id="f-type" name="type">
+              <option>Music video</option>
+              <option>Visualizer or loop</option>
+              <option>Cover art or photos</option>
+              <option>Social content</option>
+              <option>Full release package</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-date">Release date</label>
+            <input id="f-date" name="date" type="date">
+          </div>
+          <div class="field">
+            <label for="f-budget">Budget <span class="opt">(optional)</span></label>
+            <input id="f-budget" name="budget" type="text" inputmode="text">
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-message">About the project</label>
+          <textarea id="f-message" name="message" rows="5" required placeholder="The song, the mood, references you love, links."></textarea>
+        </div>
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+        <button class="btn btn-ember" type="submit" id="form-submit">Send project details</button>
+        <div class="form-result" id="form-result" hidden aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <span class="brand brand-sm">SPN<span>VISUALZ</span></span>
+    <span class="footer-note">© <span id="year">2026</span> Spnvisualz · Progress saved</span>
+    <a class="footer-top" href="#top">Back to top ▴</a>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
