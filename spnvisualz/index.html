@@ -4,226 +4,167 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Spnvisualz</title>
-<meta name="description" content="Spnvisualz: music videos, visualizers, cover art and short-form content. Every project gets its own world.">
-<meta name="theme-color" content="#13111c">
+<meta name="description" content="Spnvisualz builds unforgettable visual experiences: music videos, visualizers, cover art and short-form content.">
+<meta name="theme-color" content="#060b16">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Instrument+Sans:wght@400;500;600&family=Silkscreen&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&display=swap">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#stage">Skip to content</a>
 
-<header class="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="#top" aria-label="Spnvisualz, back to top">SPN<span>VISUALZ</span></a>
-    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
-    <nav class="nav-links" id="nav-links" aria-label="Main">
-      <a href="#zones">Services</a>
-      <a href="#work">Work</a>
-      <a href="#process">Process</a>
-      <a class="btn btn-ember btn-sm" href="#contact">Start a project</a>
-    </nav>
-  </div>
+<!-- The world: a live WebGL landscape. The fallback gradient shows if WebGL is unavailable. -->
+<div class="world-fallback" aria-hidden="true"></div>
+<canvas class="world" id="world" aria-hidden="true"></canvas>
+<div class="veil" id="veil" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="logo" href="#" id="logo" aria-label="Spnvisualz, back to start">
+    <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="18.5" />
+      <circle cx="20" cy="20" r="12" />
+      <path d="M8 27 L20 9 L32 27" />
+      <path d="M13 27 L20 16.5 L27 27" />
+      <circle cx="20" cy="22.5" r="2.2" class="logo-core" />
+    </svg>
+    <span class="logo-word">Spn<span>visualz</span></span>
+  </a>
+
+  <nav class="nav" aria-label="Main">
+    <a href="#projects" data-open="projects">Projects</a>
+    <a href="#studio" data-open="studio">Studio</a>
+    <a href="#contact" data-open="contact">Contact</a>
+  </nav>
+
+  <button class="round" id="menu-btn" type="button" aria-label="Open menu" aria-haspopup="dialog">
+    <span class="round-line"></span>
+  </button>
 </header>
 
-<main id="main">
-
-  <!-- Hero: the overworld map, seen through a viewfinder -->
-  <section class="hero" id="top">
-    <canvas class="hero-map" id="hero-map" aria-hidden="true"></canvas>
-    <div class="hero-marker" id="hero-marker" aria-hidden="true">
-      <span class="marker-dot"></span>
-      <span class="marker-label">You are here</span>
-    </div>
-    <div class="wrap hero-inner">
-      <div class="hud hud-top" aria-hidden="true">
-        <span class="rec"><span class="rec-dot"></span>REC</span>
-        <span class="timecode" id="timecode">00:00:00:00</span>
-        <span class="hud-spec">4K · 24 FPS · 2.39:1</span>
-      </div>
-
-      <div class="hero-copy">
-        <p class="eyebrow">Music videos · Visualizers · Cover art</p>
-        <h1 class="hero-title">SPN<br><span>VISUALZ</span></h1>
-        <p class="hero-lede">Every release deserves its own world. Spnvisualz builds it: the video, the loop, the cover and the cutdowns, all in one look.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-ember" href="#contact">Start a project</a>
-          <a class="btn btn-ghost" href="#work">Explore the work</a>
-        </div>
-      </div>
-
-      <div class="hud hud-bottom" aria-hidden="true">
-        <span>World 1 · Overworld</span>
-        <span class="press-start">Press start ▸</span>
-      </div>
-    </div>
-    <span class="vf vf-tl" aria-hidden="true"></span>
-    <span class="vf vf-tr" aria-hidden="true"></span>
-    <span class="vf vf-bl" aria-hidden="true"></span>
-    <span class="vf vf-br" aria-hidden="true"></span>
+<main class="stage" id="stage">
+  <section class="intro" id="intro">
+    <h1 class="intro-title">Building unforgettable<br>visual experiences</h1>
+    <p class="intro-sub">Music videos, visualizers and cover art. Every release gets its own world.</p>
   </section>
 
-  <!-- Services as zones on the map -->
-  <section class="section" id="zones">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">The map</p>
-        <h2>Four zones, one look</h2>
-        <p class="section-lede">Book one zone or the whole map. When you combine them, the video, loops, artwork and social clips share the same palette, type and grade.</p>
-      </div>
-
-      <div class="zones">
-        <article class="zone">
-          <header class="zone-head">
-            <span class="zone-ref">Grid A1</span>
-            <h3>Music videos</h3>
-          </header>
-          <p>Performance, narrative and one-take pieces, from concept to final grade.</p>
-          <ul class="loot">
-            <li>Treatment and shot list</li>
-            <li>Shoot day with crew and lighting</li>
-            <li>Edit, colour grade and sync</li>
-            <li>16:9 master plus vertical cutdowns</li>
-          </ul>
-        </article>
-
-        <article class="zone">
-          <header class="zone-head">
-            <span class="zone-ref">Grid B2</span>
-            <h3>Visualizers</h3>
-          </header>
-          <p>Loops, lyric videos and live visuals for release day and the stage screen.</p>
-          <ul class="loot">
-            <li>Spotify Canvas loops (3–8 s, 9:16)</li>
-            <li>Lyric and audio-reactive videos</li>
-            <li>Stage-screen loops for live sets</li>
-            <li>YouTube visualizers for full tracks</li>
-          </ul>
-        </article>
-
-        <article class="zone">
-          <header class="zone-head">
-            <span class="zone-ref">Grid C3</span>
-            <h3>Cover art &amp; stills</h3>
-          </header>
-          <p>Single and album artwork, press photos and stills pulled from the shoot.</p>
-          <ul class="loot">
-            <li>Cover art at 3000 × 3000 px</li>
-            <li>Press photo set</li>
-            <li>Behind-the-scenes stills</li>
-            <li>Crops for every platform</li>
-          </ul>
-        </article>
-
-        <article class="zone">
-          <header class="zone-head">
-            <span class="zone-ref">Grid D4</span>
-            <h3>Brand &amp; social</h3>
-          </header>
-          <p>Short-form content for artists, labels and brands that post every week.</p>
-          <ul class="loot">
-            <li>Reels, TikTok and Shorts at 1080 × 1920</li>
-            <li>Teasers and announcement clips</li>
-            <li>Event and tour recaps</li>
-            <li>Motion titles and logo stings</li>
-          </ul>
-        </article>
-      </div>
-    </div>
+  <section class="slide" id="slide" aria-live="polite" hidden>
+    <p class="slide-client" id="slide-client"></p>
+    <h2 class="slide-title" id="slide-title"></h2>
+    <button class="frame-btn" id="view-btn" type="button">View project</button>
   </section>
 
-  <!-- Portfolio -->
-  <section class="section section-alt" id="work">
-    <div class="wrap">
-      <div class="section-head section-head-row">
-        <div>
-          <p class="eyebrow">Save files</p>
-          <h2>Selected work</h2>
-        </div>
-        <div class="filters" id="filters" role="group" aria-label="Filter work by type">
-          <button type="button" class="filter is-active" data-filter="all" aria-pressed="true">All</button>
-          <button type="button" class="filter" data-filter="music-video" aria-pressed="false">Music videos</button>
-          <button type="button" class="filter" data-filter="visualizer" aria-pressed="false">Visualizers</button>
-          <button type="button" class="filter" data-filter="cover-art" aria-pressed="false">Cover art</button>
-          <button type="button" class="filter" data-filter="social" aria-pressed="false">Social</button>
-        </div>
-      </div>
-      <div class="work-grid" id="work-grid"></div>
-      <p class="work-empty" id="work-empty" hidden>No projects in this zone yet.</p>
-    </div>
-  </section>
+  <button class="enter" id="enter-btn" type="button">
+    <span>Enter the world</span>
+    <span class="enter-line" aria-hidden="true"></span>
+  </button>
+</main>
 
-  <!-- Formats -->
-  <section class="section" id="formats">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Aspect ratios</p>
-        <h2>Cut for every screen</h2>
-        <p class="section-lede">Each project is framed for the places it will live, so nothing gets cropped badly after delivery.</p>
-      </div>
-      <div class="formats">
-        <figure class="format">
-          <div class="frame-stage"><div class="frame" style="--r: 16 / 9; --rw: 1.7778"><span>16:9</span></div></div>
-          <figcaption><strong>Master</strong>YouTube, TV, press</figcaption>
-        </figure>
-        <figure class="format">
-          <div class="frame-stage"><div class="frame" style="--r: 9 / 16; --rw: 0.5625"><span>9:16</span></div></div>
-          <figcaption><strong>Vertical</strong>Reels, TikTok, Shorts, Canvas</figcaption>
-        </figure>
-        <figure class="format">
-          <div class="frame-stage"><div class="frame" style="--r: 1 / 1; --rw: 1"><span>1:1</span></div></div>
-          <figcaption><strong>Square</strong>Cover art, feed posts</figcaption>
-        </figure>
-        <figure class="format">
-          <div class="frame-stage"><div class="frame" style="--r: 2.39 / 1; --rw: 2.39"><span>2.39:1</span></div></div>
-          <figcaption><strong>Scope</strong>Cinematic music videos</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
+<div class="corner corner-bl">
+  <button class="square" id="index-btn" type="button" aria-label="All projects" data-open="projects">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h1.5M2 8h1.5M2 12h1.5M6 4h8M6 8h8M6 12h8" /></svg>
+  </button>
+</div>
 
-  <!-- Process -->
-  <section class="section section-alt" id="process">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Quest log</p>
-        <h2>From first call to final files</h2>
-      </div>
-      <ol class="quest">
+<div class="corner corner-br" id="arrows" hidden>
+  <span class="counter" id="counter" aria-hidden="true"></span>
+  <button class="square" id="prev-btn" type="button" aria-label="Previous project">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4" /></svg>
+  </button>
+  <button class="square" id="next-btn" type="button" aria-label="Next project">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
+  </button>
+</div>
+
+<!-- Panels -->
+<div class="panel" id="panel-menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+  <div class="panel-scroll">
+    <div class="panel-inner panel-menu">
+      <nav class="menu-links" aria-label="Menu">
+        <a href="#projects" data-open="projects">Projects</a>
+        <a href="#studio" data-open="studio">Studio</a>
+        <a href="#contact" data-open="contact">Contact</a>
+      </nav>
+      <button class="text-btn" id="motion-btn" type="button" aria-pressed="false">Pause the world</button>
+      <ul class="socials" data-socials></ul>
+    </div>
+  </div>
+  <button class="round panel-close" type="button" data-close aria-label="Close menu"><span class="x"></span></button>
+</div>
+
+<div class="panel" id="panel-projects" role="dialog" aria-modal="true" aria-labelledby="projects-title" hidden>
+  <div class="panel-scroll">
+    <div class="panel-inner">
+      <p class="label">Index</p>
+      <h2 class="panel-title" id="projects-title">Projects</h2>
+      <ol class="index" id="project-index"></ol>
+    </div>
+  </div>
+  <button class="round panel-close" type="button" data-close aria-label="Close projects"><span class="x"></span></button>
+</div>
+
+<div class="panel" id="panel-project" role="dialog" aria-modal="true" aria-labelledby="detail-title" hidden>
+  <div class="panel-scroll">
+    <div class="panel-inner">
+      <p class="label" id="detail-client"></p>
+      <h2 class="panel-title" id="detail-title"></h2>
+      <dl class="specs" id="detail-specs"></dl>
+      <p class="panel-lede" id="detail-text"></p>
+      <div class="detail-actions" id="detail-actions"></div>
+    </div>
+  </div>
+  <button class="round panel-close" type="button" data-close aria-label="Close project"><span class="x"></span></button>
+</div>
+
+<div class="panel" id="panel-studio" role="dialog" aria-modal="true" aria-labelledby="studio-title" hidden>
+  <div class="panel-scroll">
+    <div class="panel-inner">
+      <p class="label">Studio</p>
+      <h2 class="panel-title" id="studio-title">Spnvisualz turns a song into a place you can step inside.</h2>
+      <p class="panel-lede">The video, the loop, the cover and the cutdowns are built as one world, so a release looks the same everywhere it lands.</p>
+
+      <h3 class="label section-label">Services</h3>
+      <ul class="services">
         <li>
-          <span class="quest-step">Stage 1</span>
-          <h3>Brief</h3>
-          <p>A short call about the track, the release plan and the budget. Send a link to the song if you have it.</p>
+          <h4>Music videos</h4>
+          <p>Performance, narrative and one-take pieces. Treatment, shoot, edit and colour grade, with a 16:9 master and vertical cutdowns.</p>
         </li>
         <li>
-          <span class="quest-step">Stage 2</span>
-          <h3>Treatment</h3>
-          <p>A written concept with references, locations and a shot list. You approve it before anything is booked.</p>
+          <h4>Visualizers</h4>
+          <p>Spotify Canvas loops (3–8 s, 9:16), lyric and audio-reactive videos, and loops for stage screens.</p>
         </li>
         <li>
-          <span class="quest-step">Stage 3</span>
-          <h3>Production</h3>
-          <p>The shoot day, or build days for animated visuals and loops.</p>
+          <h4>Cover art &amp; stills</h4>
+          <p>Single and album artwork at 3000 × 3000 px, press photos and stills pulled from the shoot.</p>
         </li>
         <li>
-          <span class="quest-step">Stage 4</span>
-          <h3>Delivery</h3>
-          <p>Edit, colour grade and a review round, then the master and every cutdown you need.</p>
+          <h4>Brand &amp; social</h4>
+          <p>Reels, TikTok and Shorts at 1080 × 1920, teasers, recaps and motion titles.</p>
         </li>
+      </ul>
+
+      <h3 class="label section-label">How a project runs</h3>
+      <ol class="steps">
+        <li><span>Brief</span>A short call about the track, the release plan and the budget.</li>
+        <li><span>Treatment</span>A written concept with references, locations and a shot list. You approve it before anything is booked.</li>
+        <li><span>Production</span>The shoot day, or build days for animated visuals.</li>
+        <li><span>Delivery</span>Edit, colour grade and a review round, then the master and every cutdown you need.</li>
       </ol>
-    </div>
-  </section>
 
-  <!-- Contact -->
-  <section class="section" id="contact">
-    <div class="wrap contact">
-      <div class="contact-copy">
-        <p class="eyebrow">New game</p>
-        <h2>Start a project</h2>
-        <p class="section-lede">Tell Spnvisualz about the release. The more you share about the song, the date and the feeling you want, the better the first idea will be.</p>
-        <ul class="socials" id="socials"></ul>
+      <div class="detail-actions">
+        <a class="frame-btn" href="#contact" data-open="contact">Start a project</a>
       </div>
+    </div>
+  </div>
+  <button class="round panel-close" type="button" data-close aria-label="Close studio"><span class="x"></span></button>
+</div>
+
+<div class="panel" id="panel-contact" role="dialog" aria-modal="true" aria-labelledby="contact-title" hidden>
+  <div class="panel-scroll">
+    <div class="panel-inner">
+      <p class="label">Contact</p>
+      <h2 class="panel-title" id="contact-title">Start a project</h2>
+      <p class="panel-lede">Tell Spnvisualz about the release: the song, the date and the feeling you want.</p>
 
       <form class="form" id="project-form" novalidate>
         <div class="field-row">
@@ -259,7 +200,7 @@
           </div>
           <div class="field">
             <label for="f-budget">Budget <span class="opt">(optional)</span></label>
-            <input id="f-budget" name="budget" type="text" inputmode="text">
+            <input id="f-budget" name="budget" type="text">
           </div>
         </div>
         <div class="field">
@@ -267,23 +208,18 @@
           <textarea id="f-message" name="message" rows="5" required placeholder="The song, the mood, references you love, links."></textarea>
         </div>
         <p class="form-error" id="form-error" role="alert" hidden></p>
-        <button class="btn btn-ember" type="submit" id="form-submit">Send project details</button>
+        <button class="frame-btn" type="submit" id="form-submit">Send project details</button>
         <div class="form-result" id="form-result" hidden aria-live="polite"></div>
       </form>
+
+      <ul class="socials" data-socials></ul>
     </div>
-  </section>
-
-</main>
-
-<footer class="footer">
-  <div class="wrap footer-inner">
-    <span class="brand brand-sm">SPN<span>VISUALZ</span></span>
-    <span class="footer-note">© <span id="year">2026</span> Spnvisualz · Progress saved</span>
-    <a class="footer-top" href="#top">Back to top ▴</a>
   </div>
-</footer>
+  <button class="round panel-close" type="button" data-close aria-label="Close contact"><span class="x"></span></button>
+</div>
 
 <script src="js/config.js"></script>
+<script src="js/world.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
